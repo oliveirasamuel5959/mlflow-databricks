@@ -1,0 +1,12 @@
+# MLflow tracking data
+mlruns/
+
+# Optional: MLflow model registry metadata
+mlartifacts/
+
+uv.lock
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
