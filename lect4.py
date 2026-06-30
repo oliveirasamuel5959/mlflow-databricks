@@ -51,6 +51,9 @@ with mlflow.start_run(run_name="Logging Demo", run_id="2fc5532bb489489296de91620
   titanic_df = pd.read_csv("titanic.csv")
   
   mlflow.log_table(titanic_df, "titanic.json")
+  # mlflow.log_assessment(titanic_df, "titanic_assessment.json")
+  # mlflow.log_figure(demo_df.plot(kind="bar"), "demo_plot.png")
+  
 
   
   
