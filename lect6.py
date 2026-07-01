@@ -1,8 +1,7 @@
 import mlflow
 
-model_uri = "models:/best-production-model/1"
+model_uri = "models:/best-production-model/2"
 
-mlflow_model = mlflow.sklearn.load_model(model_uri)
+mlflow_model = mlflow.sklearn.load_model(model_uri=model_uri)
 
-print("Loaded model from MLflow Model Registry:")
 print(mlflow_model)
