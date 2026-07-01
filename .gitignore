@@ -6,8 +6,11 @@ mlartifacts/
 
 uv.lock
 
+*.pdf
+
 # Python
 __pycache__/
 *.py[cod]
+.python-version
 .venv/
 .env

@@ -1,0 +1,16 @@
+Steps
+
+1. Data Ingestion
+  a] Reading the PDF
+  b] Clean the PDF
+
+2. Setup mlflow
+  a] Creating a new Experiment
+  b] Importing mlflow packages
+  c] Create a Eval Dataset
+  d] Define a list of scores
+      if applicable, write a custom scorer
+  e] Setup any LLM
+  f] Define some prompts
+  
+3. Evaluate the eval dataset
