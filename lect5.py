@@ -19,33 +19,20 @@ params = {
     "random_state": 8888,
 }
 
-mlflow.set_experiment("demo experiment")
+mlflow.set_experiment("sklearn model logging")
 
-with mlflow.start_run():
-    # Log the hyperparameters
-    mlflow.log_params(params)
+# with mlflow.start_run(run_name="sklearn model logging"):
+#     # Log the hyperparameters
+#     mlflow.log_params(params)
 
+#     # Train the model
+#     model = LogisticRegression(**params)
+#     model.fit(X_train, y_train)
+    
+#     mlflow.sklearn.log_model(sk_model=model, name="simple_model")
+    
+mlflow.sklearn.autolog()    
+with mlflow.start_run(run_name="sklearn model auto"):
     # Train the model
     model = LogisticRegression(**params)
     model.fit(X_train, y_train)
-
-    # Make predictions on the test set
-    y_pred = model.predict(X_test)
-
-    # Calculate evaluation metrics
-    accuracy = accuracy_score(y_test, y_pred)
-    precision = precision_score(y_test, y_pred, average="weighted")
-    recall = recall_score(y_test, y_pred, average="weighted")
-    f1 = f1_score(y_test, y_pred, average="weighted")
-
-    # Log the evaluation metrics
-    mlflow.log_metrics({
-      "accuracy": accuracy,
-      "precision": precision,
-      "recall": recall,
-      "f1_score": f1,
-    })
-    
-    mlflow.sklearn.log_model(model, "best-production-model")
-    
-    mlflow.log_artifact("lect5.py", artifact_path="source_code")
