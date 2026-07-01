@@ -59,12 +59,25 @@ data = [
   {
     "inputs": {"question": "Which is the oldest university in the world?"},
     "expectations": {"expected_response": "University of Bologna"},
+  },
+  {
+    "inputs": {"question": "Whats is 2+2? tell me just that nothing else"},
+    "expectations": {"expected_response": "4"},
   }
 ]
 
+from mlflow.genai import scorer
+from mlflow.entities import Feedback
+
+@scorer
+def exact_match(inputs, outputs, expectations):
+  match1 = outputs == expectations["expected_response"] in outputs
+  return match1
+
 scorers = [
   mlflow.genai.scorers.Correctness(),
-  mlflow.genai.scorers.Guidelines(name="is_professional", guidelines="The answer should be professional.")
+  mlflow.genai.scorers.Guidelines(name="is_professional", guidelines="The answer should be professional."),
+  exact_match
 ]
 
 mlflow.genai.evaluate(
