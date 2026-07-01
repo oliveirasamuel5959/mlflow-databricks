@@ -37,7 +37,7 @@ mlflow.set_experiment("Prompt Evaluation")
 
 def predict_fn(question):
   prompt = mlflow.genai.load_prompt("prompts:/FAQ-BOT/2")
-  message = prompt.format(question="What exactly is the difference between sun and moon?")
+  message = prompt.format(question=question)
   
   response = client.chat.completions.create(
     model="gpt-4o-mini",
@@ -51,11 +51,20 @@ data = [
   {
     "inputs": {"question": "Who invented telephone?"},
     "expectations": {"expected_response": "Alexander Graham Bell"},
+  },
+  {
+    "inputs": {"question": "Wha is the capital of India?"},
+    "expectations": {"expected_response": "New Delhi"},
+  },
+  {
+    "inputs": {"question": "Which is the oldest university in the world?"},
+    "expectations": {"expected_response": "University of Bologna"},
   }
 ]
 
 scorers = [
-  mlflow.genai.scorers.Correctness()
+  mlflow.genai.scorers.Correctness(),
+  mlflow.genai.scorers.Guidelines(name="is_professional", guidelines="The answer should be professional.")
 ]
 
 mlflow.genai.evaluate(
