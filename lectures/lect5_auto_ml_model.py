@@ -5,7 +5,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
-
 # Load the Iris dataset
 X, y = datasets.load_iris(return_X_y=True)
 
@@ -21,23 +20,10 @@ params = {
 
 mlflow.set_experiment("sklearn model logging")
 
-# with mlflow.start_run(run_name="sklearn model logging"):
-#     # Log the hyperparameters
-#     mlflow.log_params(params)
-
-#     # Train the model
-#     model = LogisticRegression(**params)
-#     model.fit(X_train, y_train)
-    
-#     mlflow.sklearn.log_model(sk_model=model, name="simple_model")
-    
 mlflow.sklearn.autolog()    
 with mlflow.start_run(run_name="sklearn model auto"):
     # Train the model
     model = LogisticRegression(**params)
     model.fit(X_train, y_train)
     
-    # models:/best-production-model:v1
-    # runs:/<run_name>/model_name
-    
-    mlflow.sklearn.log_model(sk_model=model, name="my_model", registered_model_name="best-production-model")
+    mlflow.sklearn.log_model(sk_model=model, name="my_auto_model", registered_model_name="best-production-model")
